@@ -1,10 +1,10 @@
-package xyz.duncanruns.jingle.exampleplugin;
+package me.ravalle.programlauncher;
 
 import com.google.common.io.Resources;
 import org.apache.logging.log4j.Level;
 import xyz.duncanruns.jingle.Jingle;
 import xyz.duncanruns.jingle.JingleAppLaunch;
-import xyz.duncanruns.jingle.exampleplugin.gui.ExamplePluginPanel;
+import me.ravalle.programlauncher.gui.ExamplePluginPanel;
 import xyz.duncanruns.jingle.gui.JingleGUI;
 import xyz.duncanruns.jingle.plugin.PluginEvents;
 import xyz.duncanruns.jingle.plugin.PluginHotkeys;
@@ -14,14 +14,14 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class ExamplePlugin {
+public class ProgramLauncher {
     public static void main(String[] args) throws IOException {
         // This is only used to test the plugin in the dev environment
         // ExamplePlugin.main itself is never used when users run Jingle
 
         JingleAppLaunch.launchWithDevPlugin(args, PluginManager.JinglePluginData.fromString(
-                Resources.toString(Resources.getResource(ExamplePlugin.class, "/jingle.plugin.json"), Charset.defaultCharset())
-        ), ExamplePlugin::initialize);
+                Resources.toString(Resources.getResource(ProgramLauncher.class, "/jingle.plugin.json"), Charset.defaultCharset())
+        ), ProgramLauncher::initialize);
     }
 
     public static void initialize() {

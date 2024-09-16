@@ -1,6 +1,6 @@
 {
-  "name": "Jingle Example Plugin",
-  "id": "jingle-example-plugin",
+  "name": "Jingle Program Launcher Plugin",
+  "id": "jingle-program-launcher-plugin",
   "version": "${version}",
-  "initializer": "xyz.duncanruns.jingle.exampleplugin.ExamplePlugin::initialize"
+  "initializer": "me.ravalle.programlauncher::initialize"
 }

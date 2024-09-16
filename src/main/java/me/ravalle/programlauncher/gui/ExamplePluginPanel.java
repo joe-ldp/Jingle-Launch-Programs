@@ -1,4 +1,4 @@
-package xyz.duncanruns.jingle.exampleplugin.gui;
+package me.ravalle.programlauncher.gui;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
