@@ -7,7 +7,9 @@ import com.intellij.uiDesigner.core.Spacer;
 import javax.swing.*;
 import java.awt.*;
 
-public class ExamplePluginPanel {
+import static me.ravalle.programlauncher.ProgramLauncher.launchProgramPaths;
+
+public class ProgramLauncherPanel {
     public JPanel mainPanel;
 
     {
