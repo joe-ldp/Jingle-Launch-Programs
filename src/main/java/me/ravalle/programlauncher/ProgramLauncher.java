@@ -6,13 +6,10 @@ import xyz.duncanruns.jingle.Jingle;
 import xyz.duncanruns.jingle.JingleAppLaunch;
 import me.ravalle.programlauncher.gui.ProgramLauncherPanel;
 import xyz.duncanruns.jingle.gui.JingleGUI;
-import xyz.duncanruns.jingle.plugin.PluginEvents;
-import xyz.duncanruns.jingle.plugin.PluginHotkeys;
 import xyz.duncanruns.jingle.plugin.PluginManager;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class ProgramLauncher {
     public static void main(String[] args) throws IOException {
@@ -27,29 +24,9 @@ public class ProgramLauncher {
     public static void initialize() {
         // This gets run once when Jingle launches
 
-        JingleGUI.addPluginTab("Example Plugin", new ExamplePluginPanel().mainPanel);
-        PluginHotkeys.addHotkeyAction("My Awesome Hotkey", () -> Jingle.log(Level.INFO, "(Example Plugin) Awesome hotkey pressed!!!"));
 
-        AtomicLong timeTracker = new AtomicLong(System.currentTimeMillis());
 
-        PluginEvents.END_TICK.register(() -> {
-            // This gets run every tick (1 ms)
-            long currentTime = System.currentTimeMillis();
-            if (currentTime - timeTracker.get() > 3000) {
-                // This gets ran every 3 seconds
-                // Jingle.log(Level.INFO, "Example Plugin ran for another 3 seconds.");
-                timeTracker.set(currentTime);
-            }
-        });
 
-        PluginEvents.STOP.register(() -> {
-            // This gets run when Jingle is shutting down
-            Jingle.log(Level.INFO, "Example plugin shutting down...");
-        });
 
-        PluginEvents.ENTER_WORLD.register(() -> {
-            Jingle.log(Level.INFO, "ExamplePlugin: World has been entered!");
-        });
-        Jingle.log(Level.INFO, "Example Plugin Initialized");
     }
 }
