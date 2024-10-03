@@ -1,7 +1,8 @@
 package me.ravalle.programlauncher;
 
 import com.google.common.io.Resources;
-import com.sun.jna.platform.win32.Shell32;
+import me.ravalle.programlauncher.util.UpdateUtil;
+import me.ravalle.programlauncher.util.VersionUtil;
 import org.apache.logging.log4j.Level;
 import xyz.duncanruns.jingle.Jingle;
 import xyz.duncanruns.jingle.JingleAppLaunch;
@@ -14,13 +15,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
 public class ProgramLauncher {
-    public static List<String> launchProgramPaths;
+    public static final Path PROGRAM_LAUNCHER_FOLDER_PATH = Jingle.FOLDER.resolve("program-launcher-plugin");
+    public static final Path PROGRAM_LAUNCHER_SETTINGS_PATH = PROGRAM_LAUNCHER_FOLDER_PATH.resolve("settings.json");
+    public static final Path PLUGINS_PATH = Jingle.FOLDER.resolve("plugins");
 
     public static void main(String[] args) throws IOException {
         // This is only used to test the plugin in the dev environment
@@ -32,21 +34,27 @@ public class ProgramLauncher {
     }
 
     public static void initialize() {
-        // This gets run once when Jingle launches
+        boolean isFirstLaunch = !PROGRAM_LAUNCHER_FOLDER_PATH.toFile().exists();
+        PROGRAM_LAUNCHER_FOLDER_PATH.toFile().mkdirs();
+
+//        if (isFirstLaunch) {
+//            // implement julti settings import?
+//        }
+
+        ProgramLauncherSettings.load();
+
+        VersionUtil.deleteOldVersionJars();
+        UpdateUtil.checkForUpdatesAndUpdate(true);
 
         JingleGUI.addPluginTab("Program Launching", new ProgramLauncherPanel().mainPanel);
 
-        launchProgramPaths = new ArrayList<>();
-
-        // remove this when you add GUI lol
-        launchProgramPaths.add("E:\\Documents\\Speedrunning\\Ninjabrain-Bot-1.4.3.jar");
-        launchProgramPaths.add("C:\\Program Files\\Chatterino7\\chatterino.exe");
-
-        launchNotOpenPrograms();
+        if (ProgramLauncherSettings.getInstance().launchOnStart) {
+            launchNotOpenPrograms();
+        }
     }
 
     public static void launchNotOpenPrograms() {
-        for (String prog : launchProgramPaths) {
+        for (String prog : ProgramLauncherSettings.getInstance().launchProgramPaths) {
             boolean isOpen = false;
             try {
                 Jingle.log(Level.DEBUG, "ProgramLauncher: Searching running processes for " + prog);
