@@ -1,8 +1,6 @@
 package me.ravalle.programlauncher;
 
 import com.google.common.io.Resources;
-import me.ravalle.programlauncher.util.UpdateUtil;
-import me.ravalle.programlauncher.util.VersionUtil;
 import org.apache.logging.log4j.Level;
 import xyz.duncanruns.jingle.Jingle;
 import xyz.duncanruns.jingle.JingleAppLaunch;
@@ -42,9 +40,6 @@ public class ProgramLauncher {
 //        }
 
         ProgramLauncherSettings.load();
-
-        VersionUtil.deleteOldVersionJars();
-        UpdateUtil.checkForUpdatesAndUpdate(true);
 
         JingleGUI.addPluginTab("Program Launching", new ProgramLauncherPanel().mainPanel);
 
