@@ -9,9 +9,6 @@ import xyz.duncanruns.jingle.gui.JingleGUI;
 import xyz.duncanruns.jingle.plugin.PluginManager;
 import xyz.duncanruns.jingle.util.OpenUtil;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -19,7 +16,6 @@ import java.util.Arrays;
 public class ProgramLauncher {
     public static final Path PROGRAM_LAUNCHER_FOLDER_PATH = Jingle.FOLDER.resolve("program-launcher-plugin");
     public static final Path PROGRAM_LAUNCHER_SETTINGS_PATH = PROGRAM_LAUNCHER_FOLDER_PATH.resolve("settings.json");
-    public static final Path PLUGINS_PATH = Jingle.FOLDER.resolve("plugins");
 
     public static void main(String[] args) throws IOException {
         // This is only used to test the plugin in the dev environment
