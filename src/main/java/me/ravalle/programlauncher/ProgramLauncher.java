@@ -34,7 +34,7 @@ public class ProgramLauncher {
         boolean isFirstLaunch = !PROGRAM_LAUNCHER_FOLDER_PATH.toFile().exists();
         if (isFirstLaunch) {
             if (!PROGRAM_LAUNCHER_FOLDER_PATH.toFile().mkdirs()) {
-                Jingle.log(Level.ERROR, "Unable to create folder for Program Launcher Plugin! Plugin will terminate.");
+                Jingle.log(Level.ERROR, "(ProgramLauncherPlugin) Unable to create plugin folder! Plugin will terminate.");
                 return;
             }
             // implement julti settings import?
@@ -53,7 +53,7 @@ public class ProgramLauncher {
         for (String prog : ProgramLauncherSettings.getInstance().launchProgramPaths) {
             boolean isOpen = false;
             try {
-                Jingle.log(Level.DEBUG, "ProgramLauncher: Searching running processes for " + prog);
+                Jingle.log(Level.DEBUG, "(ProgramLauncherPlugin) Searching running processes for " + prog);
                 String[] cmd = { "cmd.exe", "/c", "wmic process where \"CommandLine like '%" + prog.replace("\\", "\\\\") + "%'\" get CommandLine /value" };
                 Process process = Runtime.getRuntime().exec(cmd);
 
@@ -62,13 +62,13 @@ public class ProgramLauncher {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     if (line.contains(prog)) {
-                        Jingle.log(Level.DEBUG, "ProgramLauncher: Found " + prog + " running, will not launch");
+                        Jingle.log(Level.DEBUG, "(ProgramLauncherPlugin) Found " + prog + " running, will not launch");
                         isOpen = true;
                     }
                 }
 
                 if (!isOpen) {
-                    Jingle.log(Level.DEBUG, "ProgramLauncher: Could not find " + prog + " running, will launch");
+                    Jingle.log(Level.DEBUG, "(ProgramLauncherPlugin) Could not find " + prog + " running, will launch");
                     OpenUtil.openFile(prog);
                 }
             } catch (Exception e) {
