@@ -56,6 +56,7 @@ public class ProgramLauncherPanel {
                             fd.setVisible(true);
                             ProgramLauncherSettings.getInstance().launchProgramPaths.addAll(Arrays.stream(fd.getFiles()).map(File::getPath).collect(Collectors.toList()));
                             fd.dispose();
+                            saveAndReloadGUI();
                         }
                     });
                     JMenuItem removeBtn = new JMenuItem("Remove");
@@ -63,6 +64,7 @@ public class ProgramLauncherPanel {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             launchPrograms.getSelectedValuesList().forEach(path -> ProgramLauncherSettings.getInstance().launchProgramPaths.remove(path));
+                            saveAndReloadGUI();
                         }
                     });
 
@@ -72,6 +74,7 @@ public class ProgramLauncherPanel {
                 }
             }
         });
+
         btnLaunchProgsNow.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -82,6 +85,14 @@ public class ProgramLauncherPanel {
             }
         });
     }
+
+    private void saveAndReloadGUI() {
+        ProgramLauncherSettings.save();
+
+        launchProgramsWhenJingleOpens.setSelected(ProgramLauncherSettings.getInstance().launchOnStart);
+
+        launchProgramsListModel.removeAllElements();
+        ProgramLauncherSettings.getInstance().launchProgramPaths.forEach(launchProgramsListModel::addElement);
     }
 
     /**
