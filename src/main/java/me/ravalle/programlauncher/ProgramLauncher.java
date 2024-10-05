@@ -15,7 +15,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.List;
 
 public class ProgramLauncher {
     public static final Path PROGRAM_LAUNCHER_FOLDER_PATH = Jingle.FOLDER.resolve("program-launcher-plugin");
