@@ -33,11 +33,10 @@ public class ProgramLauncher {
 
     public static void initialize() {
         boolean isFirstLaunch = !PROGRAM_LAUNCHER_FOLDER_PATH.toFile().exists();
-        PROGRAM_LAUNCHER_FOLDER_PATH.toFile().mkdirs();
-
-//        if (isFirstLaunch) {
-//            // implement julti settings import?
-//        }
+        if (isFirstLaunch) {
+            PROGRAM_LAUNCHER_FOLDER_PATH.toFile().mkdirs();
+            // implement julti settings import?
+        }
 
         ProgramLauncherSettings.load();
 
