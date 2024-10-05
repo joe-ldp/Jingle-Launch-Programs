@@ -16,6 +16,7 @@ import java.io.File;
 public class ProgramLauncherPanel {
     public JPanel mainPanel;
     private JLabel lblTitle;
+    private JButton btnLaunchProgsNow;
     private JList launchPrograms;
     private DefaultListModel launchProgramsListModel;
 
@@ -70,6 +71,16 @@ public class ProgramLauncherPanel {
                 }
             }
         });
+        btnLaunchProgsNow.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    new Thread(ProgramLauncher::launchNotOpenPrograms).start();
+                }
+                super.mouseReleased(e);
+            }
+        });
+    }
     }
 
     /**
@@ -89,6 +100,9 @@ public class ProgramLauncherPanel {
         mainPanel.add(spacer1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         launchPrograms = new JList();
         mainPanel.add(launchPrograms, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
+        btnLaunchProgsNow = new JButton();
+        btnLaunchProgsNow.setText("Launch Programs Now");
+        mainPanel.add(btnLaunchProgsNow, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

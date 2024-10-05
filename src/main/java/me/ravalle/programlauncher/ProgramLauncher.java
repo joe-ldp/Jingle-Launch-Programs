@@ -50,7 +50,7 @@ public class ProgramLauncher {
         }
     }
 
-    public static void launchNotOpenPrograms() {
+    public static synchronized void launchNotOpenPrograms() {
         for (String prog : ProgramLauncherSettings.getInstance().launchProgramPaths) {
             boolean isOpen = false;
             try {
