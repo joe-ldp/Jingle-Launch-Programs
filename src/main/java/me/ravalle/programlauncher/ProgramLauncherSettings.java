@@ -35,6 +35,9 @@ public class ProgramLauncherSettings {
     public String version;
 
     public static ProgramLauncherSettings getInstance() {
+        if (instance == null) {
+            load();
+        }
         return instance;
     }
 
