@@ -19,6 +19,7 @@ public class ProgramLauncherPanel {
     private JButton btnLaunchProgsNow;
     private JList launchPrograms;
     private DefaultListModel launchProgramsListModel;
+    private JCheckBox launchProgramsWhenJingleOpens;
 
     public ProgramLauncherPanel() {
         $$$setupUI$$$();
@@ -97,7 +98,10 @@ public class ProgramLauncherPanel {
         lblTitle.setText("Right click to add or remove programs");
         mainPanel.add(lblTitle, new GridConstraints(1, 0, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
-        mainPanel.add(spacer1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        mainPanel.add(spacer1, new GridConstraints(2, 1, 2, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        launchProgramsWhenJingleOpens = new JCheckBox();
+        launchProgramsWhenJingleOpens.setText("Launch programs when Jingle opens");
+        mainPanel.add(launchProgramsWhenJingleOpens, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         launchPrograms = new JList();
         mainPanel.add(launchPrograms, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
         btnLaunchProgsNow = new JButton();
