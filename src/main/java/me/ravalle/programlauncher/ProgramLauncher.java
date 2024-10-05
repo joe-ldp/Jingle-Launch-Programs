@@ -34,7 +34,10 @@ public class ProgramLauncher {
     public static void initialize() {
         boolean isFirstLaunch = !PROGRAM_LAUNCHER_FOLDER_PATH.toFile().exists();
         if (isFirstLaunch) {
-            PROGRAM_LAUNCHER_FOLDER_PATH.toFile().mkdirs();
+            if (!PROGRAM_LAUNCHER_FOLDER_PATH.toFile().mkdirs()) {
+                Jingle.log(Level.ERROR, "Unable to create folder for Program Launcher Plugin! Plugin will terminate.");
+                return;
+            }
             // implement julti settings import?
         }
 
