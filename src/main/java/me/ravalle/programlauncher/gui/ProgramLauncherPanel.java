@@ -68,7 +68,7 @@ public class ProgramLauncherPanel {
                     removeBtn.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            launchPrograms.getSelectedValuesList().forEach(path -> ProgramLauncherSettings.getInstance().launchProgramPaths.remove(path));
+                            launchPrograms.getSelectedValuesList().forEach(ProgramLauncherSettings.getInstance().launchProgramPaths::remove);
                             saveAndReloadGUI();
                         }
                     });
