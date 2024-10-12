@@ -33,12 +33,9 @@ public class ProgramLauncherPanel {
 
         saveAndReloadGUI();
 
-        launchProgramsWhenJingleOpens.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                ProgramLauncherSettings.getInstance().launchOnStart = (e.getStateChange() == ItemEvent.SELECTED);
-                saveAndReloadGUI();
-            }
+        launchProgramsWhenJingleOpens.addItemListener(e -> {
+            ProgramLauncherSettings.getInstance().launchOnStart = (e.getStateChange() == ItemEvent.SELECTED);
+            saveAndReloadGUI();
         });
 
         launchPrograms.addMouseListener(new MouseAdapter() {
@@ -52,25 +49,19 @@ public class ProgramLauncherPanel {
 
                     JPopupMenu menu = new JPopupMenu();
                     JMenuItem addBtn = new JMenuItem("Add");
-                    addBtn.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            FileDialog fd = new FileDialog((Frame) null, "Choose a program");
-                            fd.setMode(FileDialog.LOAD);
-                            fd.setMultipleMode(true);
-                            fd.setVisible(true);
-                            ProgramLauncherSettings.getInstance().launchProgramPaths.addAll(Arrays.stream(fd.getFiles()).map(File::getPath).collect(Collectors.toList()));
-                            fd.dispose();
-                            saveAndReloadGUI();
-                        }
+                    addBtn.addActionListener(e2 -> {
+                        FileDialog fd = new FileDialog((Frame) null, "Choose a program");
+                        fd.setMode(FileDialog.LOAD);
+                        fd.setMultipleMode(true);
+                        fd.setVisible(true);
+                        ProgramLauncherSettings.getInstance().launchProgramPaths.addAll(Arrays.stream(fd.getFiles()).map(File::getPath).collect(Collectors.toList()));
+                        fd.dispose();
+                        saveAndReloadGUI();
                     });
                     JMenuItem removeBtn = new JMenuItem("Remove");
-                    removeBtn.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            launchPrograms.getSelectedValuesList().forEach(ProgramLauncherSettings.getInstance().launchProgramPaths::remove);
-                            saveAndReloadGUI();
-                        }
+                    removeBtn.addActionListener(e1 -> {
+                        launchPrograms.getSelectedValuesList().forEach(ProgramLauncherSettings.getInstance().launchProgramPaths::remove);
+                        saveAndReloadGUI();
                     });
 
                     menu.add(addBtn);
@@ -93,15 +84,12 @@ public class ProgramLauncherPanel {
             }
         });
 
-        launchMCInstance.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                ProgramLauncherSettings.getInstance().launchMC = (e.getStateChange() == ItemEvent.SELECTED);
-                if (ProgramLauncherSettings.getInstance().launchMC && Objects.equals(ProgramLauncherSettings.getInstance().dotMinecraftPath, "")) {
-                    setMCLaunchPathPopup(launchMCInstance, MouseInfo.getPointerInfo().getLocation().x - launchMCInstance.getLocationOnScreen().x, MouseInfo.getPointerInfo().getLocation().y - launchMCInstance.getLocationOnScreen().y);
-                }
-                saveAndReloadGUI();
+        launchMCInstance.addItemListener(e -> {
+            ProgramLauncherSettings.getInstance().launchMC = (e.getStateChange() == ItemEvent.SELECTED);
+            if (ProgramLauncherSettings.getInstance().launchMC && Objects.equals(ProgramLauncherSettings.getInstance().dotMinecraftPath, "")) {
+                setMCLaunchPathPopup(launchMCInstance, MouseInfo.getPointerInfo().getLocation().x - launchMCInstance.getLocationOnScreen().x, MouseInfo.getPointerInfo().getLocation().y - launchMCInstance.getLocationOnScreen().y);
             }
+            saveAndReloadGUI();
         });
 
         instanceLaunchPath.addMouseListener(new MouseAdapter() {
@@ -133,24 +121,16 @@ public class ProgramLauncherPanel {
         JPopupMenu menu = new JPopupMenu();
         Jingle.options.seenPaths.keySet().forEach((path) -> {
             JMenuItem item = new JMenuItem(path);
-            item.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    setDotMinecraftPath(item.getText());
-                }
-            });
+            item.addActionListener(e -> setDotMinecraftPath(item.getText()));
             menu.add(item);
         });
         JMenuItem addOther = new JMenuItem("Search for a different instance...");
-        addOther.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new JFileChooser();
-                fc.setDialogTitle("Choose a .minecraft folder");
-                fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                fc.showDialog(component, "OK");
-                setDotMinecraftPath(fc.getSelectedFile().toString());
-            }
+        addOther.addActionListener(e -> {
+            JFileChooser fc = new JFileChooser();
+            fc.setDialogTitle("Choose a .minecraft folder");
+            fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fc.showDialog(component, "OK");
+            setDotMinecraftPath(fc.getSelectedFile().toString());
         });
         menu.add(addOther);
         menu.show(component, x, y);
@@ -159,19 +139,16 @@ public class ProgramLauncherPanel {
     private void setLauncherExecutablePathPopup(Component component, int x, int y) {
         JPopupMenu menu = new JPopupMenu();
         JMenuItem add = new JMenuItem("Search for a launcher executable...");
-        add.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FileDialog fd = new FileDialog((Frame) null, "Select your Minecraft launcher's .exe file");
-                fd.setMode(FileDialog.LOAD);
-                fd.setMultipleMode(false);
-                fd.setVisible(true);
-                if (fd.getFile() != null) {
-                    ProgramLauncherSettings.getInstance().launcherExecutable = fd.getDirectory() + fd.getFile();
-                }
-                fd.dispose();
-                saveAndReloadGUI();
+        add.addActionListener(e -> {
+            FileDialog fd = new FileDialog((Frame) null, "Select your Minecraft launcher's .exe file");
+            fd.setMode(FileDialog.LOAD);
+            fd.setMultipleMode(false);
+            fd.setVisible(true);
+            if (fd.getFile() != null) {
+                ProgramLauncherSettings.getInstance().launcherExecutable = fd.getDirectory() + fd.getFile();
             }
+            fd.dispose();
+            saveAndReloadGUI();
         });
         menu.add(add);
         menu.show(component, x, y);
