@@ -86,9 +86,7 @@ public class ProgramLauncherPanel {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     new Thread(ProgramLauncher::launchNotOpenPrograms).start();
                     if (ProgramLauncherSettings.getInstance().launchMC) {
-                    new Thread(() -> {
-                        ProgramLauncher.launchInstance(ProgramLauncherSettings.getInstance().dotMinecraftPath);
-                    }).start();
+                        new Thread(() -> ProgramLauncher.launchInstance(ProgramLauncherSettings.getInstance().dotMinecraftPath)).start();
                     }
                 }
                 super.mouseReleased(e);
