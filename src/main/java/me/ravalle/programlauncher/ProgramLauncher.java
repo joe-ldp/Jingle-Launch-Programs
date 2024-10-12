@@ -12,6 +12,7 @@ import xyz.duncanruns.jingle.util.OpenUtil;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
@@ -82,7 +83,7 @@ public class ProgramLauncher {
     }
 
     public static synchronized void launchInstance(String dotMinecraftPath) {
-        if (Jingle.getMainInstance().isPresent() && Jingle.getMainInstance().get().instancePath.toString().equals(dotMinecraftPath)) {
+        if (Jingle.getMainInstance().isPresent() && Jingle.getMainInstance().get().instancePath.equals(Paths.get(dotMinecraftPath))) {
             Jingle.log(Level.DEBUG, "(ProgramLauncherPlugin) Instance launch requested but instance is Jingle's main instance meaning it's already open, aborting!");
             return;
         }
