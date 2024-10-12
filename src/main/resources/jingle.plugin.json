@@ -2,5 +2,5 @@
   "name": "Jingle Program Launcher Plugin",
   "id": "jingle-program-launcher-plugin",
   "version": "${version}",
-  "initializer": "me.ravalle.programlauncher::initialize"
+  "initializer": "me.ravalle.programlauncher.ProgramLauncher::initialize"
 }
