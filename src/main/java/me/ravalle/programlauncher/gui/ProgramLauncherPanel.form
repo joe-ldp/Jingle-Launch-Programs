@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="me.ravalle.programlauncher.gui.ProgramLauncherPanel">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="7" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="5" left="5" bottom="5" right="5"/>
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
@@ -43,6 +43,30 @@
         </constraints>
         <properties>
           <text value="Launch Programs Now"/>
+        </properties>
+      </component>
+      <component id="5bc7e" class="javax.swing.JCheckBox" binding="launchMCInstance">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Launch Minecraft Instance (requires MultiMC or Prism)"/>
+        </properties>
+      </component>
+      <component id="3b64b" class="javax.swing.JButton" binding="instanceLaunchPath">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Instance path:"/>
+        </properties>
+      </component>
+      <component id="585d3" class="javax.swing.JButton" binding="launcherExecutablePath">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Launcher executable:"/>
         </properties>
       </component>
     </children>

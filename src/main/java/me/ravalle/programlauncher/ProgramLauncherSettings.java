@@ -28,6 +28,15 @@ public class ProgramLauncherSettings {
     @SerializedName("launch program paths")
     public List<String> launchProgramPaths = new ArrayList<>();
 
+    @SerializedName("launch minecraft instance")
+    public boolean launchMC = false;
+
+    @SerializedName("minecraft instance path")
+    public String dotMinecraftPath;
+
+    @SerializedName("launcher executable")
+    public String launcherExecutable;
+
     @SerializedName("launch on start")
     public boolean launchOnStart = true;
 
@@ -60,10 +69,10 @@ public class ProgramLauncherSettings {
 
     public static void save() {
         try {
+            //getInstance().launchMC &= ProgramLauncher.isValidDotMinecraftPath(getInstance().dotMinecraftPath) && new File(getInstance().launcherExecutable).exists();
             FileUtil.writeString(PROGRAM_LAUNCHER_SETTINGS_PATH, GSON.toJson(instance));
         } catch (IOException e) {
             Jingle.log(Level.ERROR, "(ProgramLauncherPlugin) Failed to save Program Launcher Settings: " + ExceptionUtil.toDetailedString(e));
         }
     }
-
 }
