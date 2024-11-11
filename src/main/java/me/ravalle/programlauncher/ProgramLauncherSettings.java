@@ -39,9 +39,6 @@ public class ProgramLauncherSettings {
     @SerializedName("launch on start")
     public boolean launchOnStart = true;
 
-    @SerializedName("version")
-    public String version;
-
     public static ProgramLauncherSettings getInstance() {
         if (instance == null) {
             load();
@@ -52,7 +49,6 @@ public class ProgramLauncherSettings {
     public static void load() {
         if (!Files.exists(PROGRAM_LAUNCHER_SETTINGS_PATH)) {
             instance = new ProgramLauncherSettings();
-            instance.version = ProgramLauncher.VERSION;
             save();
         } else {
             String s;
