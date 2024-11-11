@@ -21,8 +21,8 @@ public class ProgramLauncherPanel {
     public JPanel mainPanel;
     private JLabel lblTitle;
     private JButton btnLaunchProgsNow;
-    private JList launchPrograms;
-    private final DefaultListModel launchProgramsListModel;
+    private JList<String> launchPrograms;
+    private final DefaultListModel<String> launchProgramsListModel;
     private JCheckBox launchProgramsWhenJingleOpens;
     private JCheckBox launchMCInstance;
     private JButton instanceLaunchPath;
@@ -30,7 +30,7 @@ public class ProgramLauncherPanel {
 
     public ProgramLauncherPanel() {
         $$$setupUI$$$();
-        launchProgramsListModel = new DefaultListModel();
+        launchProgramsListModel = new DefaultListModel<>();
         launchPrograms.setModel(launchProgramsListModel);
 
         saveAndReloadGUI();
