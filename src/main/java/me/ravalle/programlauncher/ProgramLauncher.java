@@ -1,15 +1,18 @@
 package me.ravalle.programlauncher;
 
 import com.google.common.io.Resources;
+import me.ravalle.programlauncher.gui.ProgramLauncherPanel;
 import org.apache.logging.log4j.Level;
 import xyz.duncanruns.jingle.Jingle;
 import xyz.duncanruns.jingle.JingleAppLaunch;
-import me.ravalle.programlauncher.gui.ProgramLauncherPanel;
 import xyz.duncanruns.jingle.gui.JingleGUI;
 import xyz.duncanruns.jingle.plugin.PluginManager;
 import xyz.duncanruns.jingle.util.OpenUtil;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,6 +22,7 @@ import java.util.regex.Pattern;
 public class ProgramLauncher {
     public static final Path PROGRAM_LAUNCHER_FOLDER_PATH = Jingle.FOLDER.resolve("program-launcher-plugin");
     public static final Path PROGRAM_LAUNCHER_SETTINGS_PATH = PROGRAM_LAUNCHER_FOLDER_PATH.resolve("settings.json");
+    public static String VERSION = "DEV";
 
     private static long lastInstanceLaunchAttempt;
 
@@ -32,6 +36,8 @@ public class ProgramLauncher {
     }
 
     public static void initialize() {
+        VERSION = PluginManager.getLoadedPlugins().stream().map(p -> p.pluginData).filter(d -> d.id.equals("jingle-program-launcher-plugin")).map(d -> d.version).findFirst().orElse("Unknown");
+
         boolean isFirstLaunch = !PROGRAM_LAUNCHER_FOLDER_PATH.toFile().exists();
         if (isFirstLaunch) {
             if (!PROGRAM_LAUNCHER_FOLDER_PATH.toFile().mkdirs()) {
@@ -59,7 +65,7 @@ public class ProgramLauncher {
             boolean isOpen = false;
             try {
                 Jingle.log(Level.DEBUG, "(ProgramLauncherPlugin) Searching running processes for " + prog);
-                String[] cmd = { "cmd.exe", "/c", "wmic process where \"CommandLine like '%" + prog.replace("\\", "\\\\") + "%'\" get CommandLine /value" };
+                String[] cmd = {"cmd.exe", "/c", "wmic process where \"CommandLine like '%" + prog.replace("\\", "\\\\") + "%'\" get CommandLine /value"};
                 Process process = Runtime.getRuntime().exec(cmd);
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -126,7 +132,8 @@ public class ProgramLauncher {
                     return ProgramLauncherSettings.getInstance().launcherExecutable = potentialPrism.toString();
                 }
             }
-        } catch (IOException ignored) { }
+        } catch (IOException ignored) {
+        }
         return "not found";
     }
 
@@ -134,9 +141,9 @@ public class ProgramLauncher {
         Pattern p = Pattern.compile(".*\\\\.?minecraft");
         return (
                 path != null
-                && !path.isEmpty()
-                && new File(path).exists()
-                && p.matcher(path).find()
-                );
+                        && !path.isEmpty()
+                        && new File(path).exists()
+                        && p.matcher(path).find()
+        );
     }
 }
