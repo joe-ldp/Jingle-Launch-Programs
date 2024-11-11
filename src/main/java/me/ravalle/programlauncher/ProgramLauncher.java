@@ -131,7 +131,7 @@ public class ProgramLauncher {
     }
 
     public static boolean isValidDotMinecraftPath(String path) {
-        Pattern p = Pattern.compile(".*:\\\\(MultiMC|PrismLauncher)\\\\instances\\\\.*\\\\.minecraft");
+        Pattern p = Pattern.compile(".*\\\\.?minecraft");
         return (
                 path != null
                 && !path.isEmpty()
