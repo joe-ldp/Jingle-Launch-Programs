@@ -9,18 +9,20 @@ import xyz.duncanruns.jingle.Jingle;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import java.io.File;
 
 public class ProgramLauncherPanel {
     public JPanel mainPanel;
     private JLabel lblTitle;
     private JButton btnLaunchProgsNow;
     private JList launchPrograms;
-    private DefaultListModel launchProgramsListModel;
+    private final DefaultListModel launchProgramsListModel;
     private JCheckBox launchProgramsWhenJingleOpens;
     private JCheckBox launchMCInstance;
     private JButton instanceLaunchPath;
