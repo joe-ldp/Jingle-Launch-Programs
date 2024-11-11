@@ -3,7 +3,6 @@ package me.ravalle.programlauncher;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import me.ravalle.programlauncher.util.VersionUtil;
 import org.apache.logging.log4j.Level;
 import xyz.duncanruns.jingle.Jingle;
 import xyz.duncanruns.jingle.util.ExceptionUtil;
@@ -40,9 +39,6 @@ public class ProgramLauncherSettings {
     @SerializedName("launch on start")
     public boolean launchOnStart = true;
 
-    @SerializedName("version")
-    public String version;
-
     public static ProgramLauncherSettings getInstance() {
         if (instance == null) {
             load();
@@ -53,7 +49,6 @@ public class ProgramLauncherSettings {
     public static void load() {
         if (!Files.exists(PROGRAM_LAUNCHER_SETTINGS_PATH)) {
             instance = new ProgramLauncherSettings();
-            instance.version = VersionUtil.CURRENT_VERSION.toString();
             save();
         } else {
             String s;
