@@ -6,6 +6,7 @@ import com.intellij.uiDesigner.core.Spacer;
 import me.ravalle.programlauncher.ProgramLauncher;
 import me.ravalle.programlauncher.ProgramLauncherSettings;
 import xyz.duncanruns.jingle.Jingle;
+import xyz.duncanruns.jingle.gui.JingleGUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -186,6 +187,8 @@ public class ProgramLauncherPanel {
 
         launcherExecutablePath.setText("Launcher executable: " + ProgramLauncherSettings.getInstance().launcherExecutable);
         launcherExecutablePath.setEnabled(ProgramLauncherSettings.getInstance().launchMC);
+
+        JingleGUI.get().refreshQuickActions();
     }
 
     /**

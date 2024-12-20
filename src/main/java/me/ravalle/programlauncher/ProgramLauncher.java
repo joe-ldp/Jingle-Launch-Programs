@@ -9,6 +9,9 @@ import xyz.duncanruns.jingle.gui.JingleGUI;
 import xyz.duncanruns.jingle.plugin.PluginManager;
 import xyz.duncanruns.jingle.util.OpenUtil;
 
+import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -50,7 +53,8 @@ public class ProgramLauncher {
         lastInstanceLaunchAttempt = 0;
         ProgramLauncherSettings.load();
 
-        JingleGUI.addPluginTab("Program Launching", new ProgramLauncherPanel().mainPanel);
+        JPanel programLauncherPanel = new ProgramLauncherPanel().mainPanel;
+        JingleGUI.addPluginTab("Program Launching", programLauncherPanel);
 
         if (ProgramLauncherSettings.getInstance().launchOnStart) {
             launchNotOpenPrograms();
@@ -58,6 +62,25 @@ public class ProgramLauncher {
                 launchInstance(ProgramLauncherSettings.getInstance().dotMinecraftPath);
             }
         }
+
+        JingleGUI.get().registerQuickActionButton(10000, () -> {
+            ProgramLauncherSettings settings = ProgramLauncherSettings.getInstance();
+            JButton button = new JButton("Launch Programs" + (ProgramLauncherSettings.getInstance().launchMC ? "/MC" : ""));
+            button.setEnabled(!settings.launchProgramPaths.isEmpty() || settings.launchMC);
+            button.addActionListener(a -> {
+                new Thread(ProgramLauncher::launchNotOpenPrograms).start();
+                if (ProgramLauncherSettings.getInstance().launchMC) {
+                    new Thread(() -> ProgramLauncher.launchInstance(ProgramLauncherSettings.getInstance().dotMinecraftPath)).start();
+                }
+            });
+            button.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getButton() == 3) JingleGUI.get().openTab(programLauncherPanel);
+                }
+            });
+            return button;
+        });
     }
 
     public static synchronized void launchNotOpenPrograms() {
