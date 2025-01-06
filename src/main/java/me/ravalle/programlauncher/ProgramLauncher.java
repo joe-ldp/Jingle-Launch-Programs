@@ -9,6 +9,7 @@ import xyz.duncanruns.jingle.gui.JingleGUI;
 import xyz.duncanruns.jingle.plugin.PluginManager;
 import xyz.duncanruns.jingle.util.OpenUtil;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -50,7 +51,8 @@ public class ProgramLauncher {
         lastInstanceLaunchAttempt = 0;
         ProgramLauncherSettings.load();
 
-        JingleGUI.addPluginTab("Program Launching", new ProgramLauncherPanel().mainPanel);
+        JPanel programLauncherPanel = new ProgramLauncherPanel().mainPanel;
+        JingleGUI.addPluginTab("Program Launching", programLauncherPanel);
 
         if (ProgramLauncherSettings.getInstance().launchOnStart) {
             launchNotOpenPrograms();
@@ -58,6 +60,22 @@ public class ProgramLauncher {
                 launchInstance(ProgramLauncherSettings.getInstance().dotMinecraftPath);
             }
         }
+
+        JingleGUI.get().registerQuickActionButton(10000, () -> {
+            ProgramLauncherSettings settings = ProgramLauncherSettings.getInstance();
+            boolean launchMC = ProgramLauncherSettings.getInstance().launchMC;
+            boolean anyPrograms = !settings.launchProgramPaths.isEmpty();
+            return JingleGUI.makeButton((launchMC && !anyPrograms) ? ("Launch Minecraft") : ("Launch Programs" + (launchMC ? "/MC" : "")),
+                    () -> {
+                        new Thread(ProgramLauncher::launchNotOpenPrograms).start();
+                        if (launchMC) {
+                            new Thread(() -> ProgramLauncher.launchInstance(ProgramLauncherSettings.getInstance().dotMinecraftPath)).start();
+                        }
+                    },
+                    () -> JingleGUI.get().openTab(programLauncherPanel),
+                    "Right Click to Configure",
+                    anyPrograms || settings.launchMC);
+        });
     }
 
     public static synchronized void launchNotOpenPrograms() {
