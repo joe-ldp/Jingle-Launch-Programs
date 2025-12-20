@@ -22,7 +22,6 @@ import java.util.regex.Pattern;
 
 public class ProgramLauncher {
     public static final Path PROGRAM_LAUNCHER_FOLDER_PATH = Jingle.FOLDER.resolve("program-launcher-plugin");
-    public static final Path PROGRAM_LAUNCHER_SETTINGS_PATH = PROGRAM_LAUNCHER_FOLDER_PATH.resolve("settings.json");
     public static String VERSION = "DEV";
 
     private static long lastInstanceLaunchAttempt;
