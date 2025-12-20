@@ -63,7 +63,7 @@ public class ProgramLauncherSettings {
                 ProgramLauncherSettings options = FileUtil.readJson(path, ProgramLauncherSettings.class, GSON);
                 return Optional.of(options);
             } catch (Exception e) {
-                Jingle.logError("Failed to load program-launcher/" + path.getFileName().toString(), e);
+                Jingle.logError("Failed to load program-launcher-plugin/" + path.getFileName().toString(), e);
             }
         }
         return Optional.empty();
